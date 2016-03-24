@@ -5,7 +5,7 @@
 
 using namespace std;
 typedef struct _reservation reservation;
-
+typedef reservation* ListeResevation;
 
 struct _reservation {
        
@@ -22,67 +22,70 @@ class MesReservation
 {
 private:
 
-reservation* resaUne;
-reservation* lastResa;
-reservation* printresa;
+ListeResevation ListeResa;
 
+ListeResevation creerListe(void)
+{
+	return NULL;
+}
  
+reservation* nouvelleResa(void)
+{
+	reservation* res = (reservation*) malloc(sizeof(reservation));
+	res->suiv = NULL;
+	return res;
+}
+
+void effacer_liste(ListeResevation L)
+{
+	while( L != NULL)
+	{
+		reservation* r = L;
+		L = L->suiv;
+		free(r); 
+	}
+}
 
 public:
 
 MesReservation()
  {
- 	this->resaUne = (reservation*) malloc(sizeof(reservation));
- 	this->lastResa = (reservation*) malloc(sizeof(reservation));
- 	this->printresa = (reservation*) malloc(sizeof(reservation));
- 	this->resaUne->date = NULL;
+ 	this->ListeResa = creerListe();
  }
  
-int ajouterReservation(int date,int heurre,int nbPersone,const char* nom){
+void ajouterReservation(){
 	    
-	    reservation* res = (reservation*) malloc(sizeof(reservation));
-	    res->date = date;
-	    res->heurre = heurre;
-	    res->nbPersone =nbPersone;
-	    res->nom;
-			
-		if (this->resaUne->date == NULL)
-	    {
-	    	*this->resaUne = *res;
-	    	this->resaUne->prec = this->resaUne;
-			this->resaUne->suiv = this->lastResa;	
-	    	this->lastResa->prec = this->resaUne;
-			this->lastResa->suiv = this->resaUne;
-	    	
-		}
-		else
-		{
-			*this->lastResa->prec->suiv = *res;
-			
-			res->prec = this->lastResa->prec;
-			res->suiv = this->resaUne;
-			
-			*this->lastResa = *res;
-	
-		}
-	
-		
-		return 0;
+	    reservation* res = nouvelleResa();
+	    printf("Date : (int))");          
+       	cin >> res->date;
+       	
+		printf("heurre : (int)");          
+       	cin >> res->heurre;
+	    
+	    printf("nb de personnes : (int)");          
+       	cin >> res->nbPersone;
+	    
+	    printf("a quel nom ?(text)");          
+       	cin >> res->nom;
+       	
+	    res->suiv = this->ListeResa;
+	    this->ListeResa = res;
+
     }
     
     
-int ListeReservation()
+void ListeReservation()
     {
-    	this->printresa = this->resaUne;
-    	printf("%i %i %i %c",this->printresa->date,this->printresa->heurre,this->printresa->nbPersone,this->printresa->nom);
+    	reservation* r = this->ListeResa;
     	
-		while (this->printresa->suiv != this->resaUne)
-    	{
-    		this->printresa = this->printresa->suiv;
-			printf("%i %i %i %c",this->printresa->date,this->printresa->heurre,this->printresa->nbPersone,this->printresa->nom);
+    	while(  r != NULL)
+		{
+		printf("%i %i %i %s",r->date,r->heurre,r->nbPersone,r->nom);
+		r = r->suiv;
 		}
-    	return 0;
+
 	}
+	
 };       
        
        
@@ -91,7 +94,6 @@ int ListeReservation()
 int main(int argc, char *argv[])
 {
 	int choix;
-	int a;
 	MesReservation* Res = new MesReservation;
   	
    while (1==1)
@@ -113,14 +115,13 @@ int main(int argc, char *argv[])
                
              case 1:
              	
-          		a = Res->ajouterReservation(1,1,5,"Blabla");
-          		a = Res->ListeReservation();
-          		
-               break;
+          		Res->ajouterReservation();
+               	break;
                
              case 2:
-           //    exo2();
-               break;
+           		Res->ListeReservation();
+               	break;
+               	
             case 3:
            //    exo3();
                break;
@@ -140,4 +141,5 @@ int main(int argc, char *argv[])
 		sleep(100);
       }      
     }
+    
 }
