@@ -5,31 +5,36 @@
 using namespace std;
 
 ListeResevation  MesReservation::creerListe(void)
-{
-	return NULL;
-}
+	{
+		return NULL;
+	}
  
 reservation* MesReservation::nouvelleResa(void)
-{
-	reservation* res = (reservation*) malloc(sizeof(reservation));
-	res->suiv = NULL;
-	return res;
-}
+	{
+		reservation* res = (reservation*) malloc(sizeof(reservation));
+		res->suiv = NULL;
+		return res;
+	}
 
 void MesReservation::effacer_liste(ListeResevation L)
-{
-	while( L != NULL)
 	{
-		reservation* r = L;
-		L = L->suiv;
-		free(r); 
+		while( L != NULL)
+		{
+			reservation* r = L;
+			L = L->suiv;
+			free(r); 
+		}
 	}
+
+ListeResevation MesReservation::getListeResa()
+{
+	return this->ListeResa;
 }
 
 MesReservation::MesReservation()
- {
- 	this->ListeResa = creerListe();
- }
+	 {
+	 	this->ListeResa = creerListe();
+	 }
  
 void MesReservation::ajouterReservation(){
 	    
@@ -37,8 +42,8 @@ void MesReservation::ajouterReservation(){
 	    printf("Date : (int))");          
        	cin >> res->date;
        	
-		printf("heurre : (int)");          
-       	cin >> res->heurre;
+		printf("heure : (int)");          
+       	cin >> res->heure;
 	    
 	    printf("nb de personnes : (int)");          
        	cin >> res->nbPersone;
@@ -56,12 +61,109 @@ void MesReservation::ListeReservation()
     {
     	reservation* r = this->ListeResa;
     	
+    	printf("#################################################### \n");
+    	
     	while(  r != NULL)
 		{
-		printf("%i %i %i %s",r->date,r->heurre,r->nbPersone,r->nom);
+		printf("Reservation Pour le : %i - %i H, %i personnes, au nom de : %s \n",r->date,r->heure,r->nbPersone,r->nom);
 		r = r->suiv;
 		}
-
+		
+		printf("#################################################### \n");
 	}
 	
+void MesReservation::importReservation(int date, int heure, int nbpers, char* nom)
+	{
+	    
+	    reservation* res = nouvelleResa();
+		res->date = date;
+		res->heure = heure;
+	    res->nbPersone = nbpers;
+	    strcpy(res->nom,nom);
+       	
+	    res->suiv = this->ListeResa;
+	    this->ListeResa = res;
 
+    }
+    
+int MesReservation::longeurChaine()
+	{
+		reservation* r = this->ListeResa;
+		int cpte = 0;
+		
+		while(  r != NULL)
+		{
+		cpte++;
+		r = r->suiv;
+		}
+		
+		return cpte;
+	}
+
+   
+void MesReservation::supprimerResa()
+	{
+		if (longeurChaine() > 0)
+		{
+			
+		    reservation* r = this->ListeResa;
+	    	reservation* allResa[longeurChaine()];
+	    	int cpt = 0;
+	    	int numSuprr = 0;
+	   	
+	   	
+	    	printf("#################################################### \n");
+	    	
+	    	while(  r != NULL)
+			{
+			allResa[cpt] = r;
+			cpt++;
+			printf("R : %i | le : %i - %i H, %i personnes, au nom de : %s \n",cpt , r->date,r->heure,r->nbPersone,r->nom);
+			r = r->suiv;
+			}
+			
+			printf("#################################################### \n");
+			
+			
+			printf("Sélectioner le N° de la reservation a supprimer (0 pour annuler) :  ");
+			cin >> numSuprr;
+			
+			if (numSuprr == 0)
+			{
+				printf("Anulation \n");
+				
+				return;
+			}
+			else if (numSuprr > cpt)
+			{
+				printf("pas de reservation a ce numero \n");
+				
+				return;
+			}
+			else
+			{
+				numSuprr--;
+				
+				if (numSuprr == 0)
+				{
+					this->ListeResa = allResa[numSuprr]->suiv;
+					free(allResa[numSuprr]);
+					printf("done !");
+					return;
+				}
+				else
+				{
+					allResa[numSuprr-1]->suiv = allResa[numSuprr]->suiv;
+					free(allResa[numSuprr]);
+					printf("Supprimer !");		
+					return;
+				}
+	
+			}
+		}
+		else
+		{
+			printf("rien a afficher");
+		}
+	}
+    

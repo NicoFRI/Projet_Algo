@@ -8,7 +8,7 @@ typedef reservation* ListeResevation;
 struct _reservation {
        
        int date;
-       int heurre;
+       int heure;
        int nbPersone;
        char nom[];
        reservation* prec;
@@ -24,13 +24,17 @@ ListeResevation ListeResa;
 ListeResevation creerListe(void); 
 reservation* nouvelleResa(void);
 void effacer_liste(ListeResevation L);
+int longeurChaine();
 
 public:
 
 MesReservation();
+ListeResevation getListeResa();
 void ajouterReservation();
 void ListeReservation();
-	
+void importReservation(int date, int heure, int nbpers, char* nom);	
+void supprimerResa();
+
 };
 
 #endif // RESERVATION_INC
