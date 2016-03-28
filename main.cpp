@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Structures\Reservation.h"
+#include "LireEcrireReservation.h"
 #include <unistd.h>
 #include <cstdlib>
 
@@ -10,6 +11,13 @@ int main(int argc, char** argv) {
 	
 	int choix;
 	MesReservation* Res = new MesReservation;
+	Res->importReservation(15,15,15,"dsgsdfgdfg");
+	
+	
+	lireReservation(Res);
+	
+	
+	
   	
    while (1==1)
    {
@@ -26,11 +34,11 @@ int main(int argc, char** argv) {
        switch (choix)
        {
              case 0:
+             	/*ecrireReservation(Res->getListeResa());*/
                return 0;
                
              case 1:
-             	
-          		Res->ajouterReservation();
+          			Res->ajouterReservation();
                	break;
                
              case 2:
