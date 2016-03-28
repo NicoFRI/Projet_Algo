@@ -44,7 +44,7 @@ void ecrireReservation(reservation*L)
 	        {
 	        	
 	        
-	        	ListeResevation LR=L;	        	
+	        	ListeReservation LR=L;	        	
 				
 		  	
 		    	while(  LR != NULL)

@@ -2,9 +2,11 @@
 #include <iostream>
 #include <unistd.h>
 #include "Reservation.h"
+#include <string>
+
 using namespace std;
 
-ListeResevation  MesReservation::creerListe(void)
+ListeReservation MesReservation::creerListe(void)
 	{
 		return NULL;
 	}
@@ -13,10 +15,11 @@ reservation* MesReservation::nouvelleResa(void)
 	{
 		reservation* res = (reservation*) malloc(sizeof(reservation));
 		res->suiv = NULL;
+		res->prec = NULL;
 		return res;
 	}
 
-void MesReservation::effacer_liste(ListeResevation L)
+void MesReservation::effacer_liste(reservation* L)
 	{
 		while( L != NULL)
 		{
@@ -25,8 +28,9 @@ void MesReservation::effacer_liste(ListeResevation L)
 			free(r); 
 		}
 	}
+	
 
-ListeResevation MesReservation::getListeResa()
+ListeReservation MesReservation::getListeResa()
 {
 	return this->ListeResa;
 }
@@ -39,6 +43,7 @@ MesReservation::MesReservation()
 void MesReservation::ajouterReservation(){
 	    
 	    reservation* res = nouvelleResa();
+ 	    
 	    printf("Date : (int))");          
        	cin >> res->date;
        	
@@ -51,8 +56,38 @@ void MesReservation::ajouterReservation(){
 	    printf("a quel nom ?(text)");          
        	cin >> res->nom;
        	
-	    res->suiv = this->ListeResa;
-	    this->ListeResa = res;
+       	reservation* r = this->ListeResa;
+       	
+       	if (r == NULL)
+       	{
+			res->suiv = r;
+		    this->ListeResa = res;
+		    return;
+	    }
+	    else
+	    {
+				    
+	     	while((res->date > r->date) && (r->suiv != NULL ))
+			{
+				r = r->suiv;
+			}
+			
+			if (r == this->ListeResa)
+			{
+				res->suiv = r;
+				r->prec = res;
+				this->ListeResa = res;
+			}
+			else
+			{
+				res->suiv = r;
+				res->prec = r->prec;
+				r->prec->suiv = res;
+				res->prec = r->prec;
+			}
+			
+			return;
+		}
 
     }
     
@@ -80,7 +115,7 @@ void MesReservation::importReservation(int date, int heure, int nbpers, char* no
 		res->heure = heure;
 	    res->nbPersone = nbpers;
 	    strcpy(res->nom,nom);
-       	
+	           	
 	    res->suiv = this->ListeResa;
 	    this->ListeResa = res;
 

@@ -2,7 +2,7 @@
 #define RESERVATION_INC
 
 typedef struct _reservation reservation;
-typedef reservation* ListeResevation;     
+typedef reservation* ListeReservation;     
 
 
 struct _reservation {
@@ -20,16 +20,16 @@ class MesReservation
 {
 private:
 
-ListeResevation ListeResa;
-ListeResevation creerListe(void); 
+ListeReservation ListeResa;
+ListeReservation creerListe(void); 
 reservation* nouvelleResa(void);
-void effacer_liste(ListeResevation L);
+void effacer_liste(ListeReservation L);
 int longeurChaine();
 
 public:
 
 MesReservation();
-ListeResevation getListeResa();
+ListeReservation getListeResa();
 void ajouterReservation();
 void ListeReservation();
 void importReservation(int date, int heure, int nbpers, char* nom);	
