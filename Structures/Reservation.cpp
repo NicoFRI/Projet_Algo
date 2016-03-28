@@ -42,52 +42,27 @@ MesReservation::MesReservation()
  
 void MesReservation::ajouterReservation(){
 	    
-	    reservation* res = nouvelleResa();
- 	    
+	    int date;
+	    int heure;
+	    int nbPersone;
+	    char nom[20];
+	      		
 	    printf("Date : (int))");          
-       	cin >> res->date;
+       	cin >> date;
        	
 		printf("heure : (int)");          
-       	cin >> res->heure;
+       	cin >> heure;
 	    
 	    printf("nb de personnes : (int)");          
-       	cin >> res->nbPersone;
+       	cin >> nbPersone;
 	    
 	    printf("a quel nom ?(text)");          
-       	cin >> res->nom;
-       	
-       	reservation* r = this->ListeResa;
-       	
-       	if (r == NULL)
-       	{
-			res->suiv = r;
-		    this->ListeResa = res;
-		    return;
-	    }
-	    else
-	    {
-				    
-	     	while((res->date > r->date) && (r->suiv != NULL ))
-			{
-				r = r->suiv;
-			}
-			
-			if (r == this->ListeResa)
-			{
-				res->suiv = r;
-				r->prec = res;
-				this->ListeResa = res;
-			}
-			else
-			{
-				res->suiv = r;
-				res->prec = r->prec;
-				r->prec->suiv = res;
-				res->prec = r->prec;
-			}
-			
-			return;
-		}
+       	cin >> nom;
+	    
+	    
+	    importReservation(date, heure, nbPersone, nom);
+ 	    
+
 
     }
     
@@ -111,13 +86,59 @@ void MesReservation::importReservation(int date, int heure, int nbpers, char* no
 	{
 	    
 	    reservation* res = nouvelleResa();
+	    reservation* r = this->ListeResa;
+	    
 		res->date = date;
 		res->heure = heure;
 	    res->nbPersone = nbpers;
 	    strcpy(res->nom,nom);
 	           	
-	    res->suiv = this->ListeResa;
-	    this->ListeResa = res;
+	    if (r == NULL)
+       	{
+			res->suiv = r;
+		    this->ListeResa = res;
+		    return;
+	    }
+	    else
+	    {
+				    
+	     	while((res->date > r->date) && (r->suiv != NULL))
+			{
+				r = r->suiv;
+			}
+			
+			if (res->date >= r->date)
+			{
+				
+				res->suiv = r->suiv;
+				res->prec = r;
+				
+				if (not(r->suiv == NULL))
+				{
+					r->suiv->prec = res;
+				}
+					
+				r->suiv = res;
+				
+			} 
+			else
+			{
+				
+				res->suiv = r;
+				res->prec = r->prec;
+				
+				if (r->prec == NULL)
+					this->ListeResa = res;
+				else
+					r->prec->suiv == res;
+					
+				r->prec = res;
+			}
+		
+
+			
+			return;
+		}
 
     }
     
