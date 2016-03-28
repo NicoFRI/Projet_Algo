@@ -1,98 +1,13 @@
-#include <cstdlib>
 #include <iostream>
+#include "Structures\Reservation.h"
 #include <unistd.h>
-//#include "Structures\Reservation.h"
+#include <cstdlib>
 
 using namespace std;
-typedef struct _reservation reservation;
-typedef reservation* ListeResevation;
+/* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
-struct _reservation {
-       
-       int date;
-       int heurre;
-       int nbPersone;
-       char nom[];
-       reservation* prec;
-       reservation* suiv;
-
-       };
-       
-class MesReservation 
-{
-private:
-
-ListeResevation ListeResa;
-
-ListeResevation creerListe(void)
-{
-	return NULL;
-}
- 
-reservation* nouvelleResa(void)
-{
-	reservation* res = (reservation*) malloc(sizeof(reservation));
-	res->suiv = NULL;
-	return res;
-}
-
-void effacer_liste(ListeResevation L)
-{
-	while( L != NULL)
-	{
-		reservation* r = L;
-		L = L->suiv;
-		free(r); 
-	}
-}
-
-public:
-
-MesReservation()
- {
- 	this->ListeResa = creerListe();
- }
- 
-void ajouterReservation(){
-	    
-	    reservation* res = nouvelleResa();
-	    printf("Date : (int))");          
-       	cin >> res->date;
-       	
-		printf("heurre : (int)");          
-       	cin >> res->heurre;
-	    
-	    printf("nb de personnes : (int)");          
-       	cin >> res->nbPersone;
-	    
-	    printf("a quel nom ?(text)");          
-       	cin >> res->nom;
-       	
-	    res->suiv = this->ListeResa;
-	    this->ListeResa = res;
-
-    }
-    
-    
-void ListeReservation()
-    {
-    	reservation* r = this->ListeResa;
-    	
-    	while(  r != NULL)
-		{
-		printf("%i %i %i %s",r->date,r->heurre,r->nbPersone,r->nom);
-		r = r->suiv;
-		}
-
-	}
+int main(int argc, char** argv) {
 	
-};       
-       
-       
-
-
-int main(int argc, char *argv[])
-{
 	int choix;
 	MesReservation* Res = new MesReservation;
   	
@@ -142,4 +57,5 @@ int main(int argc, char *argv[])
       }      
     }
     
+    return 0;
 }
