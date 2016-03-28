@@ -11,7 +11,7 @@ int main(int argc, char** argv) {
 	
 	int choix;
 	MesReservation* Res = new MesReservation;
-	Res->importReservation(15,15,15,"dsgsdfgdfg");
+	//Res->importReservation(15,15,15,"dsgsdfgdfg");
 	
 	
 	lireReservation(Res);
@@ -34,7 +34,7 @@ int main(int argc, char** argv) {
        switch (choix)
        {
              case 0:
-             	/*ecrireReservation(Res->getListeResa());*/
+             	ecrireReservation(Res->getListeResa());
                return 0;
                
              case 1:

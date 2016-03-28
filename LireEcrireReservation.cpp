@@ -17,7 +17,7 @@ using namespace std;
 	      		int date;
 	      		int heure;
 	      		int nbpers;
-	      		char* nom;
+	      		char nom[20];
 	      		
 	      		fichier >> date >>heure >>nbpers >> nom ;
 	      		R->importReservation(date, heure, nbpers, nom);
@@ -35,10 +35,10 @@ using namespace std;
 
 
 
-void ecireReservation(reservation*L)
+void ecrireReservation(reservation*L)
 {
 	
-	ofstream fichier("test.txt", ios::out | ios::app);  //déclaration du flux et ouverture du fichier
+	ofstream fichier("test.txt", ios::out | ios::trunc);  //déclaration du flux et ouverture du fichier
 	        
 	        if(fichier)  // si l'ouverture a réussi
 	        {
@@ -49,7 +49,7 @@ void ecireReservation(reservation*L)
 		  	
 		    	while(  LR != NULL)
 				{
-					fichier << LR->date <<LR->heure << LR->nbPersone <<LR->nom;	
+					fichier << LR->date<< " " <<LR->heure<< " " << LR->nbPersone<< " " << LR->nom <<" \n";	
 					LR = LR->suiv;
 				}
 	                	          

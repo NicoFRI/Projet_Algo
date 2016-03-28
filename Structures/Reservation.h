@@ -10,7 +10,7 @@ struct _reservation {
        int date;
        int heure;
        int nbPersone;
-       char nom[];
+       char nom[20];
        reservation* prec;
        reservation* suiv;
 
