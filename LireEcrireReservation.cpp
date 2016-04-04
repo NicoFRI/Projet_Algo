@@ -6,7 +6,7 @@ using namespace std;
 
  void lireReservation(MesReservation* R) {	
  
-	 ifstream fichier("test.txt", ios::in);
+	 ifstream fichier("data/reservations.txt", ios::in);
 	 
 	    if(fichier)
 	    {
@@ -14,13 +14,12 @@ using namespace std;
 			string ligne;	
 	        while(getline(fichier, ligne)) //Tant qu'on n'est pas à la fin, on lit
 	      	{
-	      		int date;
-	      		int heure;
+	      		time_t date;
 	      		int nbpers;
 	      		char nom[20];
 	      		
-	      		fichier >> date >>heure >>nbpers >> nom ;
-	      		R->importReservation(date, heure, nbpers, nom);
+	      		fichier >> date >> nbpers >> nom ;
+	      		R->importReservation(date, nbpers, nom);
 	    
 	      	}
 	               
@@ -38,7 +37,7 @@ using namespace std;
 void ecrireReservation(reservation*L)
 {
 	
-	ofstream fichier("test.txt", ios::out | ios::trunc);  //déclaration du flux et ouverture du fichier
+	ofstream fichier("data/reservations.txt", ios::out | ios::trunc);  //déclaration du flux et ouverture du fichier
 	        
 	        if(fichier)  // si l'ouverture a réussi
 	        {
@@ -49,7 +48,7 @@ void ecrireReservation(reservation*L)
 		  	
 		    	while(  LR != NULL)
 				{
-					fichier << LR->date<< " " <<LR->heure<< " " << LR->nbPersone<< " " << LR->nom <<" \n";	
+					fichier << LR->date << " " << LR->nbPersone << " " << LR->nom << "\n";	
 					LR = LR->suiv;
 				}
 	                	          

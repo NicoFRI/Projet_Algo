@@ -3,6 +3,9 @@
 #include <unistd.h>
 #include "Reservation.h"
 #include <string>
+#include <ctime>
+#include <iostream>
+#include <sstream>
 
 using namespace std;
 
@@ -42,16 +45,26 @@ MesReservation::MesReservation()
  
 void MesReservation::ajouterReservation(){
 	    
-	    int date;
-	    int heure;
+	    char DateTxT[11];
+	    char HeureTxT[6];
+		time_t date;
+	    
+	    int jj;
+	    int mm;
+	    int aaaa;
+	    int hh;
+	    int min;
+	    
+	    
+	    
 	    int nbPersone;
 	    char nom[20];
 	      		
-	    printf("Date : (int))");          
-       	cin >> date;
+	    printf("Date : (jj/mm/aaaa))");          
+       	cin >> DateTxT;
        	
-		printf("heure : (int)");          
-       	cin >> heure;
+		printf("heure : (hh:mm)");          
+       	cin >> HeureTxT;
 	    
 	    printf("nb de personnes : (int)");          
        	cin >> nbPersone;
@@ -59,38 +72,55 @@ void MesReservation::ajouterReservation(){
 	    printf("a quel nom ?(text)");          
        	cin >> nom;
 	    
+		struct tm DateEtHeure;
+		
+		sscanf (DateTxT,"%d/%d/%d",&jj,&mm,&aaaa);
+		sscanf (HeureTxT,"%d:%d",&hh,&min);
+  		
+	    DateEtHeure.tm_mday = jj;
+		DateEtHeure.tm_mon = mm-1;
+		DateEtHeure.tm_year = aaaa-1900;
+		DateEtHeure.tm_hour = hh;
+		DateEtHeure.tm_min = min;	
+		DateEtHeure.tm_sec = 0;
+		
+	    //printf ("%d/%d/%d %d:%d",DateEtHeure->tm_mday,DateEtHeure->tm_mon,DateEtHeure->tm_year,DateEtHeure->tm_hour,DateEtHeure->tm_min);
 	    
-	    importReservation(date, heure, nbPersone, nom);
+	    date = mktime(&DateEtHeure);
+	    
+		importReservation(date, nbPersone, nom);
  	    
-
-
     }
     
     
 void MesReservation::ListeReservation()
     {
-    	reservation* r = this->ListeResa;
+    	char  format[32];
+    	struct tm DateEtHeure;
+    	time_t t;
+		reservation* r = this->ListeResa;
     	
     	printf("#################################################### \n");
     	
     	while(  r != NULL)
 		{
-		printf("Reservation Pour le : %i - %i H, %i personnes, au nom de : %s \n",r->date,r->heure,r->nbPersone,r->nom);
-		r = r->suiv;
+			DateEtHeure = *localtime(&r->date);
+			strftime(format, 32, "%d/%m/%Y %Hh%M", &DateEtHeure);
+			printf("Reserv. le : %s, pour %i personnes, au nom de : %s \n",format,r->nbPersone,r->nom);
+			r = r->suiv;
 		}
 		
 		printf("#################################################### \n");
 	}
 	
-void MesReservation::importReservation(int date, int heure, int nbpers, char* nom)
+void MesReservation::importReservation(time_t date, int nbpers, char* nom)
 	{
 	    
 	    reservation* res = nouvelleResa();
 	    reservation* r = this->ListeResa;
 	    
 		res->date = date;
-		res->heure = heure;
-	    res->nbPersone = nbpers;
+		res->nbPersone = nbpers;
 	    strcpy(res->nom,nom);
 	           	
 	    if (r == NULL)
@@ -159,6 +189,7 @@ int MesReservation::longeurChaine()
    
 void MesReservation::supprimerResa()
 	{
+		char  format[32];
 		if (longeurChaine() > 0)
 		{
 			
@@ -174,7 +205,7 @@ void MesReservation::supprimerResa()
 			{
 			allResa[cpt] = r;
 			cpt++;
-			printf("R : %i | le : %i - %i H, %i personnes, au nom de : %s \n",cpt , r->date,r->heure,r->nbPersone,r->nom);
+			printf("R : %i | le : %i , %i personnes, au nom de : %s \n",cpt ,r->date,r->nbPersone,r->nom);
 			r = r->suiv;
 			}
 			
@@ -207,8 +238,16 @@ void MesReservation::supprimerResa()
 					printf("done !");
 					return;
 				}
+				else if (numSuprr == cpt-1)
+				{
+					allResa[numSuprr-1]->suiv = allResa[numSuprr]->suiv;
+					free(allResa[numSuprr]);
+					printf("Supprimer !");		
+					return;
+				}
 				else
 				{
+					allResa[numSuprr+1]->prec = allResa[numSuprr]->prec;
 					allResa[numSuprr-1]->suiv = allResa[numSuprr]->suiv;
 					free(allResa[numSuprr]);
 					printf("Supprimer !");		

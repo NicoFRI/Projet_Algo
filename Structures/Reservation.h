@@ -7,8 +7,7 @@ typedef reservation* ListeReservation;
 
 struct _reservation {
        
-       int date;
-       int heure;
+       time_t date;
        int nbPersone;
        char nom[20];
        reservation* prec;
@@ -32,7 +31,7 @@ MesReservation();
 ListeReservation getListeResa();
 void ajouterReservation();
 void ListeReservation();
-void importReservation(int date, int heure, int nbpers, char* nom);	
+void importReservation(time_t date, int nbpers, char* nom);	
 void supprimerResa();
 
 };

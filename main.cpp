@@ -3,37 +3,52 @@
 #include "LireEcrireReservation.h"
 #include <unistd.h>
 #include <cstdlib>
-
+#include <ctime>
 using namespace std;
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
 int main(int argc, char** argv) {
 	
+	int nbDeCouvertMAX = 26;
+	
+	time_t temps;
+  	struct tm datetime;
+  	char  format[32];
+ 
+  	time(&temps);
+  	datetime = *localtime(&temps);
+ 
+  	strftime(format, 32, "%Y/%m/%d %H:%M", &datetime);
+ 
+	cout << temps << endl;
+  	cout << format << endl;
+	
 	int choix;
 	MesReservation* Res = new MesReservation;
-	Res->importReservation(10,1,15,"dsgsdfgdfg");
-	Res->importReservation(11,2,15,"dsgsdfgdfg");
-	Res->importReservation(12,3,15,"dsgsdfgdfg");
-	Res->importReservation(13,4,15,"dsgsdfgdfg");
-	Res->importReservation(14,5,15,"dsgsdfgdfg");
-	Res->importReservation(15,6,15,"dsgsdfgdfg");
-	Res->importReservation(9,7,15,"dsgsdfgdfg");
-	Res->importReservation(17,8,15,"dsgsdfgdfg");
-	Res->importReservation(2,9,15,"dsgsdfgdfg");
-	Res->importReservation(10,10,15,"dsgsdfgdfg");
-	Res->importReservation(11,11,15,"dsgsdfgdfg");
-	Res->importReservation(12,12,15,"dsgsdfgdfg");
-	Res->importReservation(13,13,15,"dsgsdfgdfg");
-	Res->importReservation(14,14,15,"dsgsdfgdfg");
-	Res->importReservation(15,15,15,"dsgsdfgdfg");
-	Res->importReservation(9,16,15,"dsgsdfgdfg");
-	Res->importReservation(17,17,15,"dsgsdfgdfg");
-	Res->importReservation(2,18,15,"dsgsdfgdfg");
+	
+	/*Res->importReservation(1459800023,15,"dsgsdfgdfg");
+	Res->importReservation(1459800023,15,"dsgsdfgdfg");
+	Res->importReservation(1459800023,15,"dsgsdfgdfg");
+	Res->importReservation(1459800023,15,"dsgsdfgdfg");
+	Res->importReservation(1459800023,15,"dsgsdfgdfg");
+	Res->importReservation(1459800023,15,"dsgsdfgdfg");
+	Res->importReservation(1459800023,15,"dsgsdfgdfg");
+	Res->importReservation(1459800023,15,"dsgsdfgdfg");
+	Res->importReservation(1459800023,15,"dsgsdfgdfg");
+	Res->importReservation(1459800023,15,"dsgsdfgdfg");
+	Res->importReservation(1459800023,15,"dsgsdfgdfg");
+	Res->importReservation(1459800023,15,"dsgsdfgdfg");
+	Res->importReservation(1459800023,15,"dsgsdfgdfg");
+	Res->importReservation(1459800023,15,"dsgsdfgdfg");
+	Res->importReservation(1459800023,15,"dsgsdfgdfg");
+	Res->importReservation(1459800023,15,"dsgsdfgdfg");
+	Res->importReservation(1459800023,15,"dsgsdfgdfg");
+	Res->importReservation(1459800023,15,"dsgsdfgdfg");*/
 	
 	
 	lireReservation(Res);
 
-  	
+ 	
    while (1==1)
    {
    	
@@ -61,7 +76,7 @@ int main(int argc, char** argv) {
                	break;
                	
             case 3:
-           //    exo3();
+           		Res->supprimerResa();
                break;
             case 4:
           //     exo4();
