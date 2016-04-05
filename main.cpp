@@ -1,6 +1,8 @@
 #include <iostream>
 #include "Structures\Reservation.h"
 #include "LireEcrireReservation.h"
+#include "Structures\Menu.h"
+#include "LireEcrireMenu.h"
 #include <unistd.h>
 #include <cstdlib>
 #include <ctime>
@@ -25,6 +27,10 @@ int main(int argc, char** argv) {
 	
 	int choix;
 	MesReservation* Res = new MesReservation;
+		MesMenu*Mn = new MesMenu;
+		
+		
+		/*Mn->importMenu("pizza","plat",9.1,"dsgsdfgdfg");
 	
 	/*Res->importReservation(1459800023,15,"dsgsdfgdfg");
 	Res->importReservation(1459800023,15,"dsgsdfgdfg");
@@ -47,13 +53,13 @@ int main(int argc, char** argv) {
 	
 	
 	lireReservation(Res);
-
+	lireMenu(Mn);	
  	
    while (1==1)
    {
    	
        printf("\n ********************************************************** \n");
-       printf("0....Quitter \n1....Reserver \n2....Voir la liste des reservations \n3....merci \n4....merci bcp \n5....au revoir \n6....mais \n7....vous etes encore là?");
+       printf("0....Quitter \n1....Reserver \n2....Voir la liste des reservations \n3....supprimer une reservation \n4....ajouter un plat \n5....voir la liste des plats \n6....mais \n7....vous etes encore là?");
        printf("\n ********************************************************** \n");
        printf("Aller a l'exo Numero :");
     
@@ -64,6 +70,7 @@ int main(int argc, char** argv) {
        switch (choix)
        {
              case 0:
+             	ecrireMenu(Mn->getListeMn());
              	ecrireReservation(Res->getListeResa());
                return 0;
                
@@ -78,11 +85,13 @@ int main(int argc, char** argv) {
             case 3:
            		Res->supprimerResa();
                break;
+               
             case 4:
-          //     exo4();
+         		Mn->ajouterMenu();   
                break;
+               
            case 5:
-          //     exo5();
+          		Mn->ListeMenu();
                break;
            case 6:
          //      exo6();

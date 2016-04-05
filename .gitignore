@@ -3,3 +3,6 @@ gmon.out
 *.o
 *.win
 Algo.layout
+Algo.dev
+LireEcrireReservation.h.gch
+*.gch
