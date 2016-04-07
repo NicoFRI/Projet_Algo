@@ -27,9 +27,10 @@ int main(int argc, char** argv) {
   	cout << format << endl;
 	
 	int choix;
-	MesReservation* Res = new MesReservation;
+	
 	Menu* Mn = new Menu;
-	MesCommandes* cmd = new MesCommandes;	
+	MesReservation* Res = new MesReservation(Mn);
+	//MesCommandes* cmd = new MesCommandes;	
 		
 		/*Mn->importMenu("pizza","plat",9.1,"dsgsdfgdfg");
 	
@@ -95,11 +96,14 @@ int main(int argc, char** argv) {
           		Mn->ListeMenu();
                break;
            case 6:
-         		cmd->ajouterPlat(Mn);
-         		cmd->ListerCommandes();
+         		Res->ajouterCommandes();
+         		
                break;    
            case 7:
-         //      exo7();
+               Res->listerCommandesAssociees();
+               break; 
+            case 8:
+               Res->listertouteslesCommandesAssociees();
                break;  
 			     
 		sleep(100);

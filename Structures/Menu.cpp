@@ -71,15 +71,16 @@ void Menu::ListeMenu()
     {
     	plat* r = this->ListeMn;
     	
-    	printf("#################################################### \n");
+    	printf("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ \n");
     	
     	while(  r != NULL)
 		{
-		printf("Menu : %s - %s,composé de %s, au prix de %2f \n",r->Nom_Plat,r->Type_Plat,r->Ingredient,r->Prix);
+		printf("%s : %s, %.2f Euros \n",r->Type_Plat,r->Nom_Plat,r->Prix);
+		printf("          %s \n",r->Ingredient);
 		r = r->suiv;
 		}
 		
-		printf("#################################################### \n");
+		printf("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ \n");
 	}
 	
 void Menu::importMenu(char* Nom_Plat, char* Type_Plat, float Prix, char* Ingredient)
@@ -174,7 +175,7 @@ void Menu::supprimerMn()
 			{
 			allMn[cpt] = r;
 			cpt++;
-			printf("C: %i : Menu : %s - %s,composé de %s, au prix de %2f \n",cpt,r->Nom_Plat,r->Type_Plat,r->Ingredient,r->Prix);
+			printf("[%i] : %s - %s, au prix de %.2f \n",cpt,r->Nom_Plat,r->Type_Plat,r->Prix);
 
 			r = r->suiv;
 			}

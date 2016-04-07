@@ -2,10 +2,12 @@
 #include <iostream>
 #include <unistd.h>
 #include "Reservation.h"
+#include "commandes.h"
 #include <string>
 #include <ctime>
 #include <iostream>
 #include <sstream>
+#include "Menu.h"
 
 using namespace std;
 
@@ -19,6 +21,7 @@ reservation* MesReservation::nouvelleResa(void)
 		reservation* res = (reservation*) malloc(sizeof(reservation));
 		res->suiv = NULL;
 		res->prec = NULL;
+		res->cmd = NULL;
 		return res;
 	}
 
@@ -38,9 +41,10 @@ ListeReservation MesReservation::getListeResa()
 	return this->ListeResa;
 }
 
-MesReservation::MesReservation()
+MesReservation::MesReservation(Menu* Mn)
 	 {
 	 	this->ListeResa = creerListe();
+	 	this->menu = Mn;
 	 }
  
 void MesReservation::ajouterReservation(){
@@ -390,6 +394,7 @@ int MesReservation::longeurChaine()
 void MesReservation::supprimerResa()
 	{
 		char  format[32];
+		struct tm DateEtHeure;
 		if (longeurChaine() > 0)
 		{
 			
@@ -403,9 +408,11 @@ void MesReservation::supprimerResa()
 	    	
 	    	while(  r != NULL)
 			{
+			DateEtHeure = *localtime(&r->date);
+			strftime(format, 32, "%d/%m/%Y %Hh%M", &DateEtHeure);
 			allResa[cpt] = r;
 			cpt++;
-			printf("R : %i | le : %i , %i personnes, au nom de : %s \n",cpt ,r->date,r->nbPersone,r->nom);
+			printf("R : %i | le : %s , %i personnes, au nom de : %s \n",cpt ,format,r->nbPersone,r->nom);
 			r = r->suiv;
 			}
 			
@@ -462,3 +469,172 @@ void MesReservation::supprimerResa()
 		}
 	}
     
+void MesReservation::ajouterCommandes()
+	{
+		char  format[32];
+		struct tm DateEtHeure;
+		if (longeurChaine() > 0)
+		{
+			
+		    reservation* r = this->ListeResa;
+	    	reservation* allResa[longeurChaine()];
+	    	int cpt = 0;
+	    	int selecteur = 0;
+	   	
+	   	
+	    	printf("#################################################### \n");
+	    	
+	    	while(  r != NULL)
+			{
+			DateEtHeure = *localtime(&r->date);
+			strftime(format, 32, "%d/%m/%Y %Hh%M", &DateEtHeure);
+			allResa[cpt] = r;
+			cpt++;
+			printf("R : %i | le : %s , %i personnes, au nom de : %s \n",cpt ,format,r->nbPersone,r->nom);
+			r = r->suiv;
+			}
+			
+			printf("#################################################### \n");
+			
+			
+			printf("Sélectioner le N° de la reservation (0 pour annuler) :  ");
+			cin >> selecteur;
+			
+			if (selecteur == 0)
+			{
+				printf("Anulation \n");
+				
+				return;
+			}
+			else if (selecteur > cpt)
+			{
+				printf("pas de reservation a ce numero \n");
+				
+				return;
+			}
+			else
+			{
+				selecteur--;
+				
+				if (allResa[selecteur]->cmd == NULL)
+					{
+						allResa[selecteur]->cmd = new MesCommandes();
+						allResa[selecteur]->cmd->ajouterPlat(this->menu);
+					}
+				else
+					{
+						allResa[selecteur]->cmd->ajouterPlat(this->menu);
+					}
+				
+				
+			}
+		}
+	}
+	
+	
+void MesReservation::listerCommandesAssociees()
+	{
+		char  format[32];
+		struct tm DateEtHeure;
+		if (longeurChaine() > 0)
+		{
+			
+		    reservation* r = this->ListeResa;
+	    	reservation* allResa[longeurChaine()];
+	    	int cpt = 0;
+	    	int selecteur = 0;
+	   	
+	   	
+	    	printf("#################################################### \n");
+	    	
+	    	while(  r != NULL)
+			{
+			DateEtHeure = *localtime(&r->date);
+			strftime(format, 32, "%d/%m/%Y %Hh%M", &DateEtHeure);
+			allResa[cpt] = r;
+			cpt++;
+			printf("R : %i | le : %s , %i personnes, au nom de : %s \n",cpt ,format,r->nbPersone,r->nom);
+			r = r->suiv;
+			}
+			
+			printf("#################################################### \n");
+			
+			
+			printf("Sélectioner le N° de la reservation (0 pour annuler) :  ");
+			cin >> selecteur;
+			
+			if (selecteur == 0)
+			{
+				printf("Anulation \n");
+				
+				return;
+			}
+			else if (selecteur > cpt)
+			{
+				printf("pas de reservation a ce numero \n");
+				
+				return;
+			}
+			else
+			{
+				selecteur--;
+				
+				if (allResa[selecteur]->cmd == NULL)
+					{
+							printf("pas de commandes sur cette reservation \n");
+					}
+				else
+					{
+						allResa[selecteur]->cmd->ListerCommandes();
+					}
+				
+				
+			}
+		}
+	}
+	
+	
+void MesReservation::listertouteslesCommandesAssociees()
+	{
+		char  format[32];
+		struct tm DateEtHeure;
+		if (longeurChaine() > 0)
+		{
+			
+		    reservation* r = this->ListeResa;
+	    	reservation* allResa[longeurChaine()];
+	    	int cpt = 0;
+	    	int selecteur = 0;
+	   	
+	   	
+	    	printf("#################################################### \n");
+	    	
+	    	while(  r != NULL)
+			{
+				
+			DateEtHeure = *localtime(&r->date);
+			
+			strftime(format, 32, "%d/%m/%Y %Hh%M", &DateEtHeure);
+			
+			allResa[cpt] = r;
+			
+			printf("R : %i | le : %s , %i personnes, au nom de : %s \n",cpt+1 ,format,r->nbPersone,r->nom);
+			
+			if (allResa[cpt]->cmd == NULL)
+					{
+							printf("pas de commandes sur cette reservation \n");
+					}
+				else
+					{
+						allResa[cpt]->cmd->ListerCommandes();
+					}
+			cpt++;
+			
+			r = r->suiv;
+			
+
+			printf("#################################################### \n");
+
+			}
+		}
+	}	

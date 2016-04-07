@@ -56,7 +56,8 @@ int MesCommandes::longeurChaine()
 //liste les commandes
 void MesCommandes::ListerCommandes()
     {
-
+		float total = 0;
+		
 		Listecommande c = this->ListeDesCommandes; // recupere la liste des commandes
     	
     	printf("-------------------------------------------------------- \n"); //séparateur visuel
@@ -64,10 +65,11 @@ void MesCommandes::ListerCommandes()
     	while(  c != NULL) //tant que il y as des commande dans la liste
 		{
 			//affiche le nom du plat, la qté, le prix Unitaire et le total.
-			printf("| %s  x%i  Prix /U %f  Total : %f€ \n",c->platcmd->Nom_Plat,c->Quantitee,c->platcmd->Prix,c->Quantitee*c->platcmd->Prix); 
+			printf("| %s  x%i  Prix /U %.2f  Total : %.2f€ \n",c->platcmd->Nom_Plat,c->Quantitee,c->platcmd->Prix,c->Quantitee*c->platcmd->Prix); 
+			total = total + c->Quantitee*c->platcmd->Prix; //calcul du total
 			c = c->suiv; // passe a la commande suivante
 		}
-		
+		printf("                                   Total : %.2f€ \n",total); //affiche le total.
 		printf("--------------------------------------------------------- \n");
 	}	
 
