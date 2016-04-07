@@ -4,7 +4,7 @@
 #include "LireEcrireMenu.h"
 using namespace std;
 
- void lireMenu(MesMenu* R) {	
+ void lireMenu(Menu* M) {	
  
 	 ifstream fichierMenu("data/Menu.txt", ios::in);
 	 
@@ -20,9 +20,9 @@ using namespace std;
        			char Ingredient[100];
 	      		
 	      		fichierMenu >> Nom_Plat >>Type_Plat >> Prix >> Ingredient;
-	      		printf("Menu : %s - %s,composé de %s, au prix de %2f \n",Nom_Plat,Type_Plat,Ingredient,Prix);
+	      		//printf("Menu : %s - %s,composé de %s, au prix de %2f \n",Nom_Plat,Type_Plat,Ingredient,Prix);
 			  
-			  	//R->importMenu(Nom_Plat, Type_Plat, Prix, Ingredient);
+			  	M->importMenu(Nom_Plat, Type_Plat, Prix, Ingredient);
 	    
 	      	}
 	               
@@ -37,7 +37,7 @@ using namespace std;
 
 
 
-void ecrireMenu(menu*L)
+void ecrireMenu(plat*L)
 {
 	
 	ofstream fichierMenu("data/Menu.txt", ios::out | ios::trunc);  //déclaration du flux et ouverture du fichier

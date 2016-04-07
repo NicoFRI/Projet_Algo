@@ -6,41 +6,41 @@
 
 using namespace std;
 
-ListeMenu MesMenu::creerListe(void)
+ListeMenu Menu::creerListe(void)
 	{
 		return NULL;
 	}
  
-menu* MesMenu::nouveauMenu(void)
+plat* Menu::nouveauMenu(void)
 	{
-		menu* mn = (menu*) malloc(sizeof(menu));
+		plat* mn = (plat*) malloc(sizeof(plat));
 		mn->suiv = NULL;
 		mn->prec = NULL;
 		return mn;
 	}
 
-void MesMenu::effacer_liste(menu* L)
+void Menu::effacer_liste(plat* L)
 	{
 		while( L != NULL)
 		{
-			menu* r = L;
+			plat* r = L;
 			L = L->suiv;
 			free(r); 
 		}
 	}
 	
 
-ListeMenu MesMenu::getListeMn()
+ListeMenu Menu::getListeMn()
 {
 	return this->ListeMn;
 }
 
-MesMenu::MesMenu()
+Menu::Menu()
 	 {
 	 	this->ListeMn = creerListe();
 	 }
  
-void MesMenu::ajouterMenu(){
+void Menu::ajouterMenu(){
 	    
 	    char Nom_Plat[20];
        	char Type_Plat[20];
@@ -67,9 +67,9 @@ void MesMenu::ajouterMenu(){
     }
     
     
-void MesMenu::ListeMenu()
+void Menu::ListeMenu()
     {
-    	menu* r = this->ListeMn;
+    	plat* r = this->ListeMn;
     	
     	printf("#################################################### \n");
     	
@@ -82,11 +82,11 @@ void MesMenu::ListeMenu()
 		printf("#################################################### \n");
 	}
 	
-void MesMenu::importMenu(char* Nom_Plat, char* Type_Plat, float Prix, char* Ingredient)
+void Menu::importMenu(char* Nom_Plat, char* Type_Plat, float Prix, char* Ingredient)
 	{
 	    
-	    menu* mn = nouveauMenu();
-	    menu* r = this->ListeMn;
+	    plat* mn = nouveauMenu();
+	    plat* r = this->ListeMn;
 	    
 		strcpy(mn->Nom_Plat,Nom_Plat);
 		strcpy(mn->Type_Plat,Type_Plat);
@@ -142,9 +142,9 @@ void MesMenu::importMenu(char* Nom_Plat, char* Type_Plat, float Prix, char* Ingr
 
     }
     
-int MesMenu::longeurChaine()
+int Menu::longeurChaine()
 	{
-		menu* r = this->ListeMn;
+		plat* r = this->ListeMn;
 		int cpte = 0;
 		
 		while(  r != NULL)
@@ -157,13 +157,13 @@ int MesMenu::longeurChaine()
 	}
 
    
-void MesMenu::supprimerMn()
+void Menu::supprimerMn()
 	{
 		if (longeurChaine() > 0)
 		{
 			
-		    menu* r = this->ListeMn;
-	    	menu* allMn[longeurChaine()];
+		    plat* r = this->ListeMn;
+	    	plat* allMn[longeurChaine()];
 	    	int cpt = 0;
 	    	int numSuprr = 0;
 	   	
@@ -224,3 +224,7 @@ void MesMenu::supprimerMn()
 		}
 	}
     
+int Menu::getlongeurChaine()
+ {
+ 	return longeurChaine();
+ }

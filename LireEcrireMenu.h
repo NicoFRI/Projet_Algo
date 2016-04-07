@@ -3,7 +3,7 @@
 
 
 
-  void lireMenu(MesMenu*R); 
-	void ecrireMenu(menu*L); 
+  void lireMenu(Menu*R); 
+	void ecrireMenu(plat*L); 
              
  #endif 

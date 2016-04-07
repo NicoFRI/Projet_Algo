@@ -1,0 +1,7 @@
+3fromages plat 6.5 tomate,chevre,roquefort,mozza,gruyere
+champignons plat 6.5 tomate,mozza,champigion
+mozzarella plat 5.5 tomate,mozza
+hawaïenne plat 8.5 tomate,mozza,maïs,ananas,paprika,curry
+raclette plat 9.5 tomate,mozza,raclette
+salade entree 3.0 salade
+tarte dessert 3.0 pomme

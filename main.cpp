@@ -3,6 +3,7 @@
 #include "LireEcrireReservation.h"
 #include "Structures\Menu.h"
 #include "LireEcrireMenu.h"
+#include "Structures\commandes.h"
 #include <unistd.h>
 #include <cstdlib>
 #include <ctime>
@@ -27,8 +28,8 @@ int main(int argc, char** argv) {
 	
 	int choix;
 	MesReservation* Res = new MesReservation;
-		MesMenu*Mn = new MesMenu;
-		
+	Menu* Mn = new Menu;
+	MesCommandes* cmd = new MesCommandes;	
 		
 		/*Mn->importMenu("pizza","plat",9.1,"dsgsdfgdfg");
 	
@@ -94,7 +95,8 @@ int main(int argc, char** argv) {
           		Mn->ListeMenu();
                break;
            case 6:
-         //      exo6();
+         		cmd->ajouterPlat(Mn);
+         		cmd->ListerCommandes();
                break;    
            case 7:
          //      exo7();
