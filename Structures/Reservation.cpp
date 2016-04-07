@@ -45,27 +45,51 @@ MesReservation::MesReservation()
  
 void MesReservation::ajouterReservation(){
 	    
-	    //initialisation des variables
-	    char DateTxT[11];
-	    char HeureTxT[6];
-		time_t date;
-	    
-	    int jj;
-	    int mm;
-	    int aaaa;
-	    int hh;
-	    int min;
-	    
-	    int nbPersone;
-	    char nom[20];
-	    
-	    
-	    int test=0;
+    //initialisation des variables
+    int nbDeCouvertMAX = 26;
+    
+    char DateTxT[11];
+    char HeureTxT[6];
+	time_t date;
+    
+    int jj;
+    int mm;
+    int aaaa;
+    int hh;
+    int min;
+    
+    int nbPersone;
+    char nom[20];
+    
+    
+    //variable pour verifier capacité du resto
+    char  format[32];
+	
+	char  jour[3];
+	int jourListe;
+	
+	char  mois[3];
+	int moisListe;
+	
+	char  annee[5];
+	int anneeListe;
+	
+	char  heure[3];
+	int heureListe;
+	
+	char  minute[3];
+	int minuteListe;
+	
+	long convertir;
+	
+	struct tm DateEtHeure;
+	time_t t;
+    
+     int personnePresente; 
+    int test=0;
 	    
 	while(test==0)	  		  	
-    {
-	    
-	   	
+    { 	
 	    printf("Entrer la date : (jj/mm/aaaa))");          
        	cin >> DateTxT;
        	
@@ -73,20 +97,21 @@ void MesReservation::ajouterReservation(){
        	cin >> HeureTxT;
        	
        	
-       	struct tm DateEtHeure;
+       	struct tm DateEtHeureSaisie;
 		
 		sscanf (DateTxT,"%d/%d/%d",&jj,&mm,&aaaa);
 		sscanf (HeureTxT,"%d:%d",&hh,&min);
   		
-	    DateEtHeure.tm_mday = jj;
-		DateEtHeure.tm_mon = mm-1;
-		DateEtHeure.tm_year = aaaa-1900;
-		DateEtHeure.tm_hour = hh;
-		DateEtHeure.tm_min = min;	
-		DateEtHeure.tm_sec = 0;
+	    DateEtHeureSaisie.tm_mday = jj;
+		DateEtHeureSaisie.tm_mon = mm-1;
+		DateEtHeureSaisie.tm_year = aaaa-1900;
+		DateEtHeureSaisie.tm_hour = hh;
+		DateEtHeureSaisie.tm_min = min;	
+		DateEtHeureSaisie.tm_sec = 0;
        	
-       date = mktime(&DateEtHeure);
+        date = mktime(&DateEtHeureSaisie);
        	
+       	personnePresente=0;
        	
        	//variable concernant la date du jour (initialise après la saisie pour que les tests ne soit pas faussés)
      	struct tm Today;
@@ -94,12 +119,9 @@ void MesReservation::ajouterReservation(){
 	
 		time(&maintenant);
 		Today = *localtime(&maintenant);
-	
-	
 
 	
 		int DateValide=0;
-   
 	    
 		//verification de la validité de la date
        	if(mm>0 && mm<12 && aaaa>=Today.tm_year + 1900 && aaaa<=Today.tm_year + 1901){
@@ -171,26 +193,104 @@ void MesReservation::ajouterReservation(){
 				test=1;
 			}
 									
-		}		
-    }    
-	
-       	
-	    
-	    printf("nb de personnes : (int)");          
-       	cin >> nbPersone;
-	    
-	    printf("a quel nom ?(text)");          
-       	cin >> nom;
-	    
+		}
+		
+	}	
+		
+	//compare si la capacité du resto n'est pas dépasé
+    //on recupere la liste de reservation
+	reservation* r = this->ListeResa;
+    	
+    printf("#################################################### \n");
+    	
+   	while(  r != NULL)
+	{
+		//on recupere la date 
+		DateEtHeure = *localtime(&r->date);
+			
+		//on passe le jour, le mois.... dans des chars
+		strftime(format, 32, "%d/%m/%Y %Hh%M", &DateEtHeure);
+		strftime(jour, 3, "%d", &DateEtHeure);
+		strftime(mois, 3, "%m", &DateEtHeure);
+		strftime( annee,5, "%Y", &DateEtHeure);
+		strftime( heure,3, "%H", &DateEtHeure);
+		strftime( minute,3, "%M", &DateEtHeure);
+					
+			
+		//on met les valeurs des chars dans des int 
+  		convertir = strtol(jour, NULL, 10);
+  		//mais avant on verifie que la valuer ne sort pas de la taille de la variable
+  		if (convertir >= INT_MIN && convertir <= INT_MAX)	{
+    		jourListe = (int) convertir;
+   		}
+   			
+   			
+   		//Idem pour toutes les variables (mois)
+  		convertir = strtol(mois, NULL, 10);
+  		if (convertir >= INT_MIN && convertir <= INT_MAX)	{
+     		moisListe = (int) convertir;
+   		}
+   			
+   		//annee
+  		convertir = strtol(annee, NULL, 10);
+  		if (convertir >= INT_MIN && convertir <= INT_MAX)	{
+     		anneeListe = (int) convertir;
+   		}
+   			
+   		//heure
+  		convertir = strtol(heure, NULL, 10);
+  		if (convertir >= INT_MIN && convertir <= INT_MAX)	{
+     		heureListe = (int) convertir;
+   		}
+   			
+   		//minute
+  		convertir = strtol(minute, NULL, 10);
+  		if (convertir >= INT_MIN && convertir <= INT_MAX)	{
+     		minuteListe = (int) convertir;
+   		}
+   			
+   	
+   		if(aaaa==anneeListe && mm==moisListe && jj==jourListe)	{
+				
+			//si les deux plages horaires se chevauche incrementer nombre de personnes
+			if((hh<heureListe && heureListe < hh+2) || (heureListe<hh && hh<heureListe+2)){
+				personnePresente=personnePresente+r->nbPersone;
+			} 
+			else if (hh==heureListe && mm==minuteListe){
+				personnePresente=personnePresente+r->nbPersone;
+			}
+			else if (hh==heureListe && (mm<=minuteListe || mm>=minuteListe)){
+				personnePresente=personnePresente+r->nbPersone;
+			}				
+		}
+			
+		//printf("Reserv. le : %s, %i/%i/%i %ih %i \n",format,jourListe, moisListe, anneeListe, heureListe, minuteListe);
+		r = r->suiv;			
+	}
+		
+		
+		
+		
+	//demande de saisir le nombre de personne
+	printf("nb de personnes : (int)");          
+	cin >> nbPersone;
 	
 		
-	    //printf ("%d/%d/%d %d:%d",DateEtHeure->tm_mday,DateEtHeure->tm_mon,DateEtHeure->tm_year,DateEtHeure->tm_hour,DateEtHeure->tm_min);
-	    
-	    
-	    
+	//si le nombre de personne presente est plus petit que la capacité du resto
+	if(personnePresente+nbPersone <=nbDeCouvertMAX ){
+		//demande le nom est enregistre la reservation dans la liste
+		printf("a quel nom ?(text)");          
+		cin >> nom;
+			
 		importReservation(date, nbPersone, nom);
- 	    
-    }
+		
+		printf("Votre reservation est enregistre pour la %i/%i/%i %ih%i pour %i personnes au nom de %s ",jj,mm,aaaa,hh,min,nbPersone, nom);			
+	} 
+	else {
+		printf("Nous ne pouvons traiter votre demande car la capacite du restaurant est atteinte");
+	}
+	
+}
     
     
 void MesReservation::ListeReservation()
