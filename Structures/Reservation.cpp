@@ -336,37 +336,38 @@ void MesReservation::importReservation(time_t date, int nbpers, char* nom)
 	    else
 	    {
 				    
-	     	while((res->date > r->date) && (r->suiv != NULL))
+	     	//tant que la date de la nouvelle reservation est supp a la date de reservation et que on est pas en fin de liste
+			while((res->date > r->date) && (r->suiv != NULL)) 	
 			{
-				r = r->suiv;
+				r = r->suiv; //passe a la ressuivante
 			}
 			
-			if (res->date >= r->date)
+			if (res->date >= r->date) //si la date st supp ou égale a la date de la liste.
 			{
 				
-				res->suiv = r->suiv;
-				res->prec = r;
+				res->suiv = r->suiv; //met le suivant de r en suivant de res
+				res->prec = r; // défini r comme précédent res
 				
 				if (not(r->suiv == NULL))
 				{
-					r->suiv->prec = res;
+					r->suiv->prec = res; //si r n'est pas le dernier de la liste, place res en précedent du suivant de r.
 				}
 					
-				r->suiv = res;
+				r->suiv = res; //place res apres r.
 				
 			} 
 			else
 			{
 				
-				res->suiv = r;
-				res->prec = r->prec;
+				res->suiv = r; //met r en suivant de res
+				res->prec = r->prec; //recup le precedent de r et le pace dans res
 				
-				if (r->prec == NULL)
-					this->ListeResa = res;
+				if (r->prec == NULL) //si le precedent de r est le début de liste
+					this->ListeResa = res; // res deviens le premier de la liste
 				else
-					r->prec->suiv == res;
+					r->prec->suiv = res; //sinon res deviens le suivant du précedent de r
 					
-				r->prec = res;
+				r->prec = res; // res deviens le precedent de r
 			}
 		
 
