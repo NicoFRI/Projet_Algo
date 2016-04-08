@@ -80,6 +80,9 @@ int main(int argc, char** argv) {
             case 8:
                Res->listertouteslesCommandesAssociees();
                break;  
+               case 9:
+               Mn->supprimerMn();
+               break;  
 			     
 		sleep(100);
       }      

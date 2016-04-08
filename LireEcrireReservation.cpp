@@ -9,18 +9,18 @@ using namespace std;
 	 ifstream fichier("data/reservations.txt", ios::in);
 	 
 	    if(fichier)
-	    {
+	    {		time_t date =0;
+	      		int nbpers;
+	      		char nom[20];
 	        
 			string ligne;	
 	        while(getline(fichier, ligne)) //Tant qu'on n'est pas à la fin, on lit
 	      	{
-	      		time_t date;
-	      		int nbpers;
-	      		char nom[20];
+	      	 
 	      		
+				  
 	      		fichier >> date >> nbpers >> nom ;
-	      		R->importReservation(date, nbpers, nom);
-	    
+	      	 if(date!=0)  R->importReservation(date, nbpers, nom); 
 	      	}
 	               
 	        fichier.close();
@@ -41,14 +41,14 @@ void ecrireReservation(reservation*L)
 	        
 	        if(fichier)  // si l'ouverture a réussi
 	        {
-	        	
+	        	fichier<<"date"<<" "<<"nb"<<" "<<"nom";
 	        
 	        	ListeReservation LR=L;	        	
 				
 		  	
 		    	while(  LR != NULL)
 				{
-					fichier << LR->date << " " << LR->nbPersone << " " << LR->nom << "\n";	
+					fichier<< "\n"<< LR->date << " " << LR->nbPersone << " " << LR->nom ;	
 					LR = LR->suiv;
 				}
 	                	          
