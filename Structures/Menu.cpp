@@ -94,53 +94,11 @@ void Menu::importMenu(char* Nom_Plat, char* Type_Plat, float Prix, char* Ingredi
 	    mn->Prix = Prix;
 	    strcpy(mn->Ingredient,Ingredient);
 	           	
-	    if (r == NULL)
-       	{
-			mn->suiv = r;
-		    this->ListeMn = mn;
-		    return;
-	    }
-	    else
-	    {
-				    
-	     	while((mn->Prix > r->Prix) && (r->suiv != NULL))
-			{
-				r = r->suiv;
-			}
-			
-			if (mn->Prix >= r->Prix)
-			{
-				
-				mn->suiv = r->suiv;
-				mn->prec = r;
-				
-				if (not(r->suiv == NULL))
-				{
-					r->suiv->prec = mn;
-				}
-					
-				r->suiv = mn;
-				
-			} 
-			else
-			{
-				
-				mn->suiv = r;
-				mn->prec = r->prec;
-				
-				if (r->prec == NULL)
-					this->ListeMn = mn;
-				else
-					r->prec->suiv == mn;
-					
-				r->prec = mn;
-			}
+		mn->suiv = this->ListeMn; //défini la liste comme élément suivant de la comande
+		this->ListeMn = mn; //insert la nouvelle commande en tete de liste
 		
-
-			
-			return;
-		}
-
+		return;
+		
     }
     
 int Menu::longeurChaine()
