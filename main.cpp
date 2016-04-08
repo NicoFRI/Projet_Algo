@@ -23,36 +23,12 @@ int main(int argc, char** argv) {
  
   	strftime(format, 32, "%Y/%m/%d %H:%M", &datetime);
  
-	cout << temps << endl;
   	cout << format << endl;
 	
 	int choix;
 	
 	Menu* Mn = new Menu;
 	MesReservation* Res = new MesReservation(Mn);
-	//MesCommandes* cmd = new MesCommandes;	
-		
-		/*Mn->importMenu("pizza","plat",9.1,"dsgsdfgdfg");
-	
-	/*Res->importReservation(1459800023,15,"dsgsdfgdfg");
-	Res->importReservation(1459800023,15,"dsgsdfgdfg");
-	Res->importReservation(1459800023,15,"dsgsdfgdfg");
-	Res->importReservation(1459800023,15,"dsgsdfgdfg");
-	Res->importReservation(1459800023,15,"dsgsdfgdfg");
-	Res->importReservation(1459800023,15,"dsgsdfgdfg");
-	Res->importReservation(1459800023,15,"dsgsdfgdfg");
-	Res->importReservation(1459800023,15,"dsgsdfgdfg");
-	Res->importReservation(1459800023,15,"dsgsdfgdfg");
-	Res->importReservation(1459800023,15,"dsgsdfgdfg");
-	Res->importReservation(1459800023,15,"dsgsdfgdfg");
-	Res->importReservation(1459800023,15,"dsgsdfgdfg");
-	Res->importReservation(1459800023,15,"dsgsdfgdfg");
-	Res->importReservation(1459800023,15,"dsgsdfgdfg");
-	Res->importReservation(1459800023,15,"dsgsdfgdfg");
-	Res->importReservation(1459800023,15,"dsgsdfgdfg");
-	Res->importReservation(1459800023,15,"dsgsdfgdfg");
-	Res->importReservation(1459800023,15,"dsgsdfgdfg");*/
-	
 	
 	lireReservation(Res);
 	lireMenu(Mn);	
@@ -61,11 +37,9 @@ int main(int argc, char** argv) {
    {
    	
        printf("\n ********************************************************** \n");
-       printf("0....Quitter \n1....Reserver \n2....Voir la liste des reservations \n3....supprimer une reservation \n4....ajouter un plat \n5....voir la liste des plats \n6....mais \n7....vous etes encore là?");
+       printf("0....Quitter \n1....Reserver \n2....Voir la liste des reservations \n3....supprimer une reservation \n4....ajouter un plat \n5....voir la liste des plats \n6....Ajouter une commande \n7....Voir les commandes associees a une reservation \n8....Lister toutes les commandes");
        printf("\n ********************************************************** \n");
-       printf("Aller a l'exo Numero :");
-    
-       
+       printf("Entrer le numero correspondant a ce que vous souhaitiez faire :");
        cin >> choix;
        
        

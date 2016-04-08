@@ -21,7 +21,7 @@ Listecommande MesCommandes::creerListe(void)
 		return NULL;
 	}
 
-// alocation mémoire pour une nouvelle commande
+// allocation mémoire pour une nouvelle commande
 commande* MesCommandes::nouvelleCommande(void)
 	{
 		commande* cmd = (commande*) malloc(sizeof(commande));
@@ -32,7 +32,7 @@ commande* MesCommandes::nouvelleCommande(void)
 		return cmd;
 	}
 
-// renvois la liste des commandes.	
+// renvoi la liste des commandes.	
 Listecommande MesCommandes::getListe()
 	{
 		return this->ListeDesCommandes;
@@ -128,7 +128,7 @@ void MesCommandes::ajouterPlat(Menu* mn) //ajouter un plat issue du menu a la co
 			printf("---------------------------------------------------- \n");
 			
 			
-			printf("Sélectioner le N° du plat (0 pour annuler) :  "); //demande de selection
+			printf("Selectioner le N° du plat (0 pour annuler) :  "); //demande de selection
 			cin >> select;
 			
 			if (select==0) return; // si on annule : sorti de la fct.

@@ -205,8 +205,8 @@ void MesReservation::ajouterReservation(){
     //on recupere la liste de reservation
 	reservation* r = this->ListeResa;
     	
-    printf("#################################################### \n");
-    	
+    printf("---------------------------------------------------- \n");
+		
    	while(  r != NULL)
 	{
 		//on recupere la date 
@@ -276,7 +276,7 @@ void MesReservation::ajouterReservation(){
 		
 		
 	//demande de saisir le nombre de personne
-	printf("nb de personnes : (int)");          
+	printf("Entrer le nonbre de personnes : (int)");          
 	cin >> nbPersone;
 	
 		
@@ -288,10 +288,10 @@ void MesReservation::ajouterReservation(){
 			
 		importReservation(date, nbPersone, nom);
 		
-		printf("Votre reservation est enregistre pour la %i/%i/%i %ih%i pour %i personnes au nom de %s ",jj,mm,aaaa,hh,min,nbPersone, nom);			
+		printf("Votre reservation est enregistree pour le %i/%i/%i a %ih%i pour %i personnes au nom de %s ",jj,mm,aaaa,hh,min,nbPersone, nom);			
 	} 
 	else {
-		printf("Nous ne pouvons traiter votre demande car la capacite du restaurant est atteinte");
+		printf("Nous ne pouvons traiter votre demande car la capacite du restaurant est atteinte \n Merci de votre comprehension");
 	}
 	
 }
@@ -572,7 +572,7 @@ void MesReservation::listerCommandesAssociees()
 			}
 			else if (selecteur > cpt)
 			{
-				printf("pas de reservation a ce numero \n");
+				printf("Pas de reservation a ce numero \n");
 				
 				return;
 			}
@@ -582,7 +582,7 @@ void MesReservation::listerCommandesAssociees()
 				
 				if (allResa[selecteur]->cmd == NULL)
 					{
-							printf("pas de commandes sur cette reservation \n");
+							printf("Pas de commandes sur cette reservation \n");
 					}
 				else
 					{

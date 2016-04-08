@@ -20,7 +20,6 @@ using namespace std;
        			char Ingredient[100];
 	      		
 	      		fichierMenu >> Nom_Plat >>Type_Plat >> Prix >> Ingredient;
-	      		//printf("Menu : %s - %s,composé de %s, au prix de %2f \n",Nom_Plat,Type_Plat,Ingredient,Prix);
 			  
 			  	M->importMenu(Nom_Plat, Type_Plat, Prix, Ingredient);
 	    
@@ -29,9 +28,7 @@ using namespace std;
 	        fichierMenu.close();
 	  	}
 	    else
-		cerr << "Impossible d'ouvrir le fichier !" << endl;
-	 
-	      
+		cerr << "Impossible d'ouvrir le fichier !" << endl; 
 	    /*return 0;*/
   }
 

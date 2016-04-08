@@ -47,16 +47,16 @@ void Menu::ajouterMenu(){
       	float Prix;
        	char Ingredient[100];
 	      		
-	    printf("Nom : (text))");          
+	    printf("Entrer le nom du plat : (text))");          
        	cin >> Nom_Plat;
        	
-		printf("Type : (text)");          
+		printf("Entrer le type du plat: (text)");          
        	cin >> Type_Plat;
 	    
-	    printf("Prix : (int)");          
+	    printf("Entrer le prix du plat : (int)");          
        	cin >> Prix;
 	    
-	    printf("Ingredient (text)");          
+	    printf("Entrer les ingredients : (text)");          
        	cin >> Ingredient;
 	    
 	    
