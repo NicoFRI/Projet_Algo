@@ -23,6 +23,7 @@ int main(int argc, char** argv) {
  
   	strftime(format, 32, "%Y/%m/%d %H:%M", &datetime);
  
+ cout<< "Bienvenue chez Teauteau"<< endl;
   	cout << format << endl;
 	
 	int choix;
